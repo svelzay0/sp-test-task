@@ -1,6 +1,10 @@
 <template>
   <v-container>
-    <div v-if="product">
+    <NuxtLink to="/">
+      <v-btn>На главную</v-btn>
+    </NuxtLink>
+
+    <div v-if="!product">
       <v-row>
         <v-col cols="12" md="6">
           <v-carousel show-arrows="hover" hide-delimiters>
@@ -61,12 +65,19 @@
         </v-col>
       </v-row>
     </div>
+
+    <v-row v-else class="mt-4">
+      <v-col cols="12" sm="6">
+        <v-skeleton-loader type="ossein" height="300" />
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-skeleton-loader type="card-avatar, article" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-
 const route = useRoute();
 const productsStore = useProductsStore();
 const id = Number(route.params.id);
@@ -83,19 +94,21 @@ onMounted(() => {
   pageUrl.value = window.location.href;
 });
 
-const { data: product } = await useAsyncData(`product-${id}`, () =>
-  productsStore.fetchProductById(id)
+const { data: product, error } = await useAsyncData(
+  `product-${id}`,
+  () => productsStore.fetchProductById(id),
+  { lazy: true }
 );
 
-if (!product.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: "Товар не найден",
+if (error.value) {
+  showError({
+    statusCode: error.value?.statusCode,
+    statusMessage: error.value?.statusMessage,
     fatal: true,
   });
 }
 
 useHead({
-  title: product.value.title,
+  title: product.value?.title ?? "Товар",
 });
 </script>

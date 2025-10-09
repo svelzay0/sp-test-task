@@ -67,13 +67,10 @@
       class="pa-4"
       hydrate-on-visible
     />
-    <!-- тут избавляемся от ошибок гидратации вместо ClientOnly (сервер обращается к IntersectionObserver) -->
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-
 const productsStore = useProductsStore();
 
 const {
@@ -85,12 +82,24 @@ const {
   hasMoreProducts,
 } = storeToRefs(productsStore);
 
-onMounted(() => {
-  productsStore.fetchCategories();
-  if (!filteredProducts.value.length) {
-    productsStore.applyFilters();
+await useAsyncData(
+  "initial-load",
+  async () => {
+    await Promise.all([
+      productsStore.fetchCategories(),
+      productsStore.applyFilters(),
+    ]);
+    return true;
   }
-});
+);
+
+// или по заданию и для skeleton
+// onMounted(() => {
+//   productsStore.fetchCategories();
+//   if (!filteredProducts.value.length) {
+//     productsStore.applyFilters();
+//   }
+// });
 
 const onIntersect = (isIntersecting: boolean) => {
   if (isIntersecting) {
