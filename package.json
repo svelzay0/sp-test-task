@@ -1,0 +1,27 @@
+{
+  "name": "nuxt4-fsd-vuetify-catalog",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "lint": "eslint . --ext .ts,.vue"
+  },
+  "dependencies": {
+    "nuxt": "^4.0.1",
+    "pinia": "^3.0.3",
+    "@pinia/nuxt": "^0.11.2",
+    "nuxt-qrcode": "^0.4.8",
+    "vue": "^3.5.22",
+    "vue-router": "^4.5.1",
+    "vuetify": "^3.0.0",
+    "vuetify-nuxt-module": "^0.18.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.8.3"
+  }
+}
