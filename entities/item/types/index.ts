@@ -56,6 +56,7 @@ export interface ItemsRequestPayload {
   amount: number;
   currency: string;
   sort: Partial<Record<ItemSortKey, "desc" | "asc">>;
+  [key: string]: unknown;
 }
 
 export interface ItemsResponse {

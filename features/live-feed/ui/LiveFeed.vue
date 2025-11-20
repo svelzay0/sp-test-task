@@ -48,52 +48,52 @@
             class="live-feed-card"
             :style="{ '--graph-color': getGraphColor(index) }"
           >
-          <div class="live-feed-card__background">
-            <img
-              class="live-feed-card__waves"
-              src="/assets/icons/waves-background.svg"
-              alt="Waves background"
-              width="200"
-              height="200"
-            />
-          </div>
-
-          <div class="live-feed-card__graph">
-            <svg
-              viewBox="0 0 200 100"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                :d="generateGraphPath(index)"
-                fill="none"
-                :stroke="getGraphColor(index)"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-
-          <div class="live-feed-card__content">
-            <div class="live-feed-card__info">
-              <strong class="live-feed-card__price">
-                {{ formatCurrency(entry.price, "usd") }}
-              </strong>
-              <p class="live-feed-card__name">{{ entry.name }}</p>
-            </div>
-
-            <div class="live-feed-card__illustration">
-              <NuxtImg
-                :src="entry.imageUri"
-                :alt="entry.name"
-                width="80"
-                height="80"
-                loading="lazy"
+            <div class="live-feed-card__background">
+              <img
+                class="live-feed-card__waves"
+                src="/assets/icons/waves-background.svg"
+                alt="Waves background"
+                width="200"
+                height="200"
               />
             </div>
-          </div>
-        </article>
+
+            <div class="live-feed-card__graph">
+              <svg
+                viewBox="0 0 200 100"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  :d="generateGraphPath(index)"
+                  fill="none"
+                  :stroke="getGraphColor(index)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <div class="live-feed-card__content">
+              <div class="live-feed-card__info">
+                <strong class="live-feed-card__price">
+                  {{ formatCurrency(entry.price, "usd") }}
+                </strong>
+                <p class="live-feed-card__name">{{ entry.name }}</p>
+              </div>
+
+              <div class="live-feed-card__illustration">
+                <NuxtImg
+                  :src="entry.imageUri"
+                  :alt="entry.name"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </article>
         </transition-group>
       </transition>
     </div>
@@ -117,16 +117,8 @@ const props = withDefaults(defineProps<Props>(), {
   isCollapsed: false,
 });
 
-const emit = defineEmits<{
-  toggle: [];
-}>();
-
 const feedStore = useLiveFeedStore();
 const { entries } = storeToRefs(feedStore);
-
-const toggleCollapse = () => {
-  emit("toggle");
-};
 
 const graphColors = ["#3b82f6", "#22c55e", "#ef4444", "#f97316", "#a855f7"];
 

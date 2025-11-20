@@ -265,7 +265,6 @@ import {
 } from "vue";
 import { storeToRefs } from "pinia";
 import { useIntersectionObserver, useWindowSize } from "@vueuse/core";
-import { Teleport } from "vue";
 const LazyCatalogFilters = defineAsyncComponent(
   () => import("~/features/catalog-filters/ui/CatalogFilters.vue")
 );
@@ -279,6 +278,7 @@ import {
 } from "~/shared/config/catalog";
 import { useItemsStore } from "~/entities/item/model/store";
 import { useItemsApi } from "~/entities/item";
+import type { Item, ItemType, ItemsRequestPayload } from "~/entities/item";
 import LiveFeed from "~/features/live-feed/ui/LiveFeed.vue";
 
 const filters = useCatalogFiltersStore();
@@ -311,29 +311,24 @@ const closeFilters = () => {
   document.body.style.overflow = "";
 };
 
-const payload = computed(() => {
+const payload = computed((): ItemsRequestPayload => {
   const payloadValue = requestPayload?.value;
   if (!payloadValue || !payloadValue.filter || !payloadValue.filter.types) {
     // Возвращаем дефолтный payload если store еще не инициализирован
+    const defaultTypes: ItemType[] = ["transport", "pet", "egg", "potion"];
     return {
       filter: {
-        types: [
-          { type: "transport" },
-          { type: "pet" },
-          { type: "egg" },
-          { type: "potion" },
-        ],
+        types: defaultTypes.map((type) => ({ type })),
       },
       page: 1,
       amount: 72,
       currency: "usd",
-      sort: { popularity: "desc" },
+      sort: { popularity: "desc" as const },
     };
   }
-  return structuredClone(payloadValue);
+  return structuredClone(payloadValue) as ItemsRequestPayload;
 });
 
-// SSR: загружаем первую страницу через useAsyncData (только на сервере, один раз)
 const { fetchItems } = useItemsApi();
 const initialPayload = computed(() => ({
   ...payload.value,
@@ -341,13 +336,11 @@ const initialPayload = computed(() => ({
 }));
 
 const { data: initialData } = await useAsyncData(
-  "items-initial-ssr", // Статический ключ, чтобы не перезапускался при изменении фильтров
+  "items-initial-ssr",
   () => fetchItems(initialPayload.value),
   {
     server: true,
-    client: false, // Отключаем на клиенте, чтобы избежать двойных запросов
     default: () => null,
-    watch: false, // Отключаем watch, чтобы не перезапускался при изменении payload
   }
 );
 
@@ -371,7 +364,7 @@ if (import.meta.server && initialData.value) {
 }
 
 const items = computed(
-  () => itemsQuery?.data.value?.pages.flatMap((page: { items: unknown[] }) => page.items) ?? []
+  (): Item[] => itemsQuery?.data.value?.pages.flatMap((page) => page.items as Item[]) ?? []
 );
 const totalItems = computed(
   () => itemsQuery?.data.value?.pages?.[0]?.count ?? 0
@@ -410,7 +403,7 @@ const toggleSortDropdown = () => {
 };
 
 const selectSort = (value: string) => {
-  filters.setSort(value);
+  filters.setSort(value as Parameters<typeof filters.setSort>[0]);
   isSortOpen.value = false;
 };
 
@@ -445,8 +438,10 @@ const loadMoreTrigger = ref<HTMLElement | null>(null);
 if (import.meta.client && itemsQuery) {
   useIntersectionObserver(
     loadMoreTrigger,
-    ([entry]) => {
+    (entries) => {
+      const entry = entries[0];
       if (
+        entry &&
         entry.isIntersecting &&
         itemsQuery?.hasNextPage?.value &&
         !itemsQuery?.isFetchingNextPage?.value

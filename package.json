@@ -7,7 +7,9 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "lint": "eslint . --ext .ts,.vue",
-    "test": "vitest run"
+    "lint:fix": "eslint . --ext .ts,.vue --fix",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@nuxt/image": "^2.0.0",

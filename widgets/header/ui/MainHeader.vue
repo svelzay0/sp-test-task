@@ -28,7 +28,7 @@
           </div>
 
           <div class="main-header__actions">
-            <div class="action-item balance-block">
+            <div v-if="profile" class="action-item balance-block">
               <div class="info-col text-right">
                 <div class="value">
                   {{ formatCurrency(profile.balance, profile.currency) }}
@@ -45,7 +45,7 @@
               </button>
             </div>
 
-            <div class="action-item profile-block">
+            <div v-if="profile" class="action-item profile-block">
               <button type="button" class="chip chip--flag">
                 <img
                   class="flag"

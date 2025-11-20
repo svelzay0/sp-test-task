@@ -2,7 +2,6 @@ import type {
   ItemLevel,
   ItemProperty,
   ItemRarity,
-  ItemSortKey,
   ItemType,
 } from "~/entities/item";
 

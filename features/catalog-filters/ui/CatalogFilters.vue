@@ -94,7 +94,6 @@
         </label>
       </div>
     </div>
-
   </aside>
 </template>
 
