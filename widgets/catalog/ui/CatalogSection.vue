@@ -650,7 +650,7 @@ const refetch = () => itemsQuery?.refetch();
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  height: 41px;
+  min-height: 41px;
 }
 
 .active-filters {
