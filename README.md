@@ -6,7 +6,7 @@
 
 Приложение развернуто на Vercel и доступно по адресу:
 
-🔗 **[https://sp-test-task-coral.vercel.app/](https://sp-test-task-coral.vercel.app/)**
+🔗 **[https://sp-test-task-eosin.vercel.app/](https://sp-test-task-eosin.vercel.app/)**
 
 Приложение работает с полной поддержкой SSR (Server-Side Rendering).
 
