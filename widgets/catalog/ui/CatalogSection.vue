@@ -50,69 +50,21 @@
             class="filters-toggle-btn"
             @click="openFilters"
           >
-            <svg
+            <NuxtImg
+              src="/assets/icons/filter-icon.svg"
+              alt="Filters"
               width="20"
               height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="3"
-                y1="5"
-                x2="17"
-                y2="5"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-              <circle cx="15" cy="5" r="2" fill="currentColor" />
-              <line
-                x1="3"
-                y1="10"
-                x2="17"
-                y2="10"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-              <circle cx="10" cy="10" r="2" fill="currentColor" />
-              <line
-                x1="3"
-                y1="15"
-                x2="17"
-                y2="15"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-              <circle cx="5" cy="15" r="2" fill="currentColor" />
-            </svg>
+            />
           </button>
           <div class="search-input-wrapper">
-            <svg
+            <NuxtImg
               class="search-icon"
+              src="/assets/icons/search-icon.svg"
+              alt="Search"
               width="16"
               height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 14L11.1 11.1"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            />
             <input
               v-model="searchQuery"
               type="text"
@@ -136,89 +88,44 @@
                 class="sort-icon"
                 :style="{ background: currentSortOption?.color || '#3b82f6' }"
               >
-                <svg
+                <NuxtImg
                   v-if="currentSortOption?.icon === 'star'"
+                  src="/assets/icons/star-icon.svg"
+                  alt="Star"
                   width="16"
                   height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 2L9.8541 5.76393L14 6.52786L11 9.47214L11.7082 13.6361L8 11.7639L4.2918 13.6361L5 9.47214L2 6.52786L6.1459 5.76393L8 2Z"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <svg
+                />
+                <NuxtImg
                   v-else-if="currentSortOption?.icon === 'tag'"
+                  src="/assets/icons/tag-icon.svg"
+                  alt="Tag"
                   width="16"
                   height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2 4L8 2L14 4V12L8 14L2 12V4Z"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <svg
+                />
+                <NuxtImg
                   v-else-if="currentSortOption?.icon === 'arrow-up'"
+                  src="/assets/icons/arrow-up-icon.svg"
+                  alt="Arrow up"
                   width="16"
                   height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 10L8 6L12 10"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <svg
+                />
+                <NuxtImg
                   v-else-if="currentSortOption?.icon === 'arrow-down'"
+                  src="/assets/icons/arrow-down-icon.svg"
+                  alt="Arrow down"
                   width="16"
                   height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 6L8 10L12 6"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                />
               </div>
               <span>{{ currentSortOption?.label || "Популярность" }}</span>
-              <svg
+              <NuxtImg
                 class="sort-chevron"
                 :class="{ 'sort-chevron--up': isSortOpen }"
+                src="/assets/icons/chevron-down-icon.svg"
+                alt="Chevron"
                 width="12"
                 height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 4.5L6 7.5L9 4.5"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              />
             </button>
             <div v-if="isSortOpen" class="sort-dropdown__menu">
               <button
@@ -233,70 +140,34 @@
                   class="sort-option__icon"
                   :style="{ background: option.color }"
                 >
-                  <svg
+                  <NuxtImg
                     v-if="option.icon === 'star'"
+                    src="/assets/icons/star-icon.svg"
+                    alt="Star"
                     width="16"
                     height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 2L9.8541 5.76393L14 6.52786L11 9.47214L11.7082 13.6361L8 11.7639L4.2918 13.6361L5 9.47214L2 6.52786L6.1459 5.76393L8 2Z"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg
+                  />
+                  <NuxtImg
                     v-else-if="option.icon === 'tag'"
+                    src="/assets/icons/tag-icon.svg"
+                    alt="Tag"
                     width="16"
                     height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 4L8 2L14 4V12L8 14L2 12V4Z"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg
+                  />
+                  <NuxtImg
                     v-else-if="option.icon === 'arrow-up'"
+                    src="/assets/icons/arrow-up-icon.svg"
+                    alt="Arrow up"
                     width="16"
                     height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 10L8 6L12 10"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg
+                  />
+                  <NuxtImg
                     v-else-if="option.icon === 'arrow-down'"
+                    src="/assets/icons/arrow-down-icon.svg"
+                    alt="Arrow down"
                     width="16"
                     height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                  />
                 </div>
                 <span>{{ option.label }}</span>
               </button>
@@ -323,8 +194,8 @@
         </div>
       </div>
 
-      <div v-if="itemsQuery.isPending.value && !itemsQuery.isFetchingNextPage.value" class="grid">
-        <div v-for="index in amount ?? 72" :key="index" class="skeleton-card" />
+      <div v-if="itemsQuery.isPending.value && !itemsQuery.isFetchingNextPage.value && showSkeleton" class="grid">
+        <div v-for="index in (amount ?? 72)" :key="index" class="skeleton-card" />
       </div>
 
       <div v-else-if="itemsQuery?.error?.value" class="state state--error">
@@ -360,21 +231,12 @@
           class="empty-state__button"
           @click="filters.reset()"
         >
-          <svg
+          <NuxtImg
+            src="/assets/icons/reset-icon.svg"
+            alt="Reset"
             width="20"
             height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 3V1M10 1L13 4M10 1L7 4M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3"
-              stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          />
           Сбросить фильтры!
         </button>
       </div>
@@ -427,6 +289,9 @@ const {
 
 const isClient = import.meta.client;
 const { width } = useWindowSize();
+
+// Показываем skeleton только на клиенте, чтобы избежать несоответствия гидратации
+const showSkeleton = computed(() => isClient);
 // На сервере всегда false, чтобы избежать проблем с гидратацией
 const isMobile = computed(() => {
   if (!isClient) return false;
@@ -596,20 +461,6 @@ const refetch = () => itemsQuery?.refetch();
 </script>
 
 <style scoped lang="scss">
-.catalog-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-}
-
-.catalog-layout__filters {
-  border-right: 1px solid var(--color-border);
-  position: sticky;
-  top: var(--header-lg-greater-height);
-  align-self: start;
-  overflow-y: auto;
-  max-width: 320px;
-}
-
 .catalog-layout__content {
   padding: 20px 30px;
 }
@@ -675,7 +526,6 @@ const refetch = () => itemsQuery?.refetch();
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-text-label);
   pointer-events: none;
 }
 
@@ -993,16 +843,8 @@ const refetch = () => itemsQuery?.refetch();
 }
 
 @media (max-width: 1024px) {
-  .catalog-layout {
-    grid-template-columns: 1fr;
-  }
-
   .catalog-layout__content {
     padding: 24px;
-  }
-
-  .catalog-layout__filters.catalog-layout__filters {
-    display: none;
   }
 }
 </style>

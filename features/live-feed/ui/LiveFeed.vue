@@ -49,25 +49,13 @@
             :style="{ '--graph-color': getGraphColor(index) }"
           >
           <div class="live-feed-card__background">
-            <svg
+            <NuxtImg
               class="live-feed-card__waves"
-              viewBox="0 0 200 200"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0,100 Q50,50 100,100 T200,100 L200,200 L0,200 Z"
-                fill="none"
-                stroke="rgba(0,0,0,0.05)"
-                stroke-width="1"
-              />
-              <path
-                d="M0,120 Q50,70 100,120 T200,120 L200,200 L0,200 Z"
-                fill="none"
-                stroke="rgba(0,0,0,0.05)"
-                stroke-width="1"
-              />
-            </svg>
+              src="/assets/icons/waves-background.svg"
+              alt="Waves background"
+              width="200"
+              height="200"
+            />
           </div>
 
           <div class="live-feed-card__graph">
