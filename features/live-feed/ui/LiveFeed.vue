@@ -3,7 +3,7 @@
     <div class="live-feed__list">
       <article class="live-feed-stats-card">
         <div class="live-feed-stats-card__illustration">
-          <NuxtImg
+          <img
             src="/assets/icons/stats-illustration.svg"
             alt="Statistics illustration"
             width="120"
@@ -13,13 +13,13 @@
         <div class="live-feed-stats-card__content">
           <p class="live-feed-stats-card__label">Сделок за все время</p>
           <div class="live-feed-stats-card__value">
-            <NuxtImg
+            <img
               src="/assets/icons/star.svg"
               alt="Star icon"
               width="16"
               height="16"
             />
-            <NuxtImg
+            <img
               src="/assets/icons/star.svg"
               alt="Star icon"
               width="16"
@@ -49,7 +49,7 @@
             :style="{ '--graph-color': getGraphColor(index) }"
           >
           <div class="live-feed-card__background">
-            <NuxtImg
+            <img
               class="live-feed-card__waves"
               src="/assets/icons/waves-background.svg"
               alt="Waves background"

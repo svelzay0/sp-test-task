@@ -26,7 +26,9 @@
 
     <div class="catalog-layout__content">
       <section class="catalog-hero glass-panel">
-        <LiveFeed class="catalog-live-feed" />
+        <div class="catalog-hero__wrapper">
+          <LiveFeed class="catalog-live-feed" />
+        </div>
       </section>
 
       <div class="catalog-filters__group">
@@ -50,7 +52,7 @@
             class="filters-toggle-btn"
             @click="openFilters"
           >
-            <NuxtImg
+            <img
               src="/assets/icons/filter-icon.svg"
               alt="Filters"
               width="20"
@@ -58,7 +60,7 @@
             />
           </button>
           <div class="search-input-wrapper">
-            <NuxtImg
+            <img
               class="search-icon"
               src="/assets/icons/search-icon.svg"
               alt="Search"
@@ -88,28 +90,28 @@
                 class="sort-icon"
                 :style="{ background: currentSortOption?.color || '#3b82f6' }"
               >
-                <NuxtImg
+                <img
                   v-if="currentSortOption?.icon === 'star'"
                   src="/assets/icons/star-icon.svg"
                   alt="Star"
                   width="16"
                   height="16"
                 />
-                <NuxtImg
+                <img
                   v-else-if="currentSortOption?.icon === 'tag'"
                   src="/assets/icons/tag-icon.svg"
                   alt="Tag"
                   width="16"
                   height="16"
                 />
-                <NuxtImg
+                <img
                   v-else-if="currentSortOption?.icon === 'arrow-up'"
                   src="/assets/icons/arrow-up-icon.svg"
                   alt="Arrow up"
                   width="16"
                   height="16"
                 />
-                <NuxtImg
+                <img
                   v-else-if="currentSortOption?.icon === 'arrow-down'"
                   src="/assets/icons/arrow-down-icon.svg"
                   alt="Arrow down"
@@ -118,7 +120,7 @@
                 />
               </div>
               <span>{{ currentSortOption?.label || "Популярность" }}</span>
-              <NuxtImg
+              <img
                 class="sort-chevron"
                 :class="{ 'sort-chevron--up': isSortOpen }"
                 src="/assets/icons/chevron-down-icon.svg"
@@ -140,28 +142,28 @@
                   class="sort-option__icon"
                   :style="{ background: option.color }"
                 >
-                  <NuxtImg
+                  <img
                     v-if="option.icon === 'star'"
                     src="/assets/icons/star-icon.svg"
                     alt="Star"
                     width="16"
                     height="16"
                   />
-                  <NuxtImg
+                  <img
                     v-else-if="option.icon === 'tag'"
                     src="/assets/icons/tag-icon.svg"
                     alt="Tag"
                     width="16"
                     height="16"
                   />
-                  <NuxtImg
+                  <img
                     v-else-if="option.icon === 'arrow-up'"
                     src="/assets/icons/arrow-up-icon.svg"
                     alt="Arrow up"
                     width="16"
                     height="16"
                   />
-                  <NuxtImg
+                  <img
                     v-else-if="option.icon === 'arrow-down'"
                     src="/assets/icons/arrow-down-icon.svg"
                     alt="Arrow down"
@@ -214,7 +216,7 @@
         class="empty-state"
       >
         <div class="empty-state__illustration">
-          <NuxtImg
+          <img
             src="/assets/icons/empty-state-dinosaur.svg"
             alt="Empty state illustration"
             width="200"
@@ -231,7 +233,7 @@
           class="empty-state__button"
           @click="filters.reset()"
         >
-          <NuxtImg
+          <img
             src="/assets/icons/reset-icon.svg"
             alt="Reset"
             width="20"
@@ -369,7 +371,7 @@ if (import.meta.server && initialData.value) {
 }
 
 const items = computed(
-  () => itemsQuery?.data.value?.pages.flatMap((page: any) => page.items) ?? []
+  () => itemsQuery?.data.value?.pages.flatMap((page: { items: unknown[] }) => page.items) ?? []
 );
 const totalItems = computed(
   () => itemsQuery?.data.value?.pages?.[0]?.count ?? 0
@@ -383,7 +385,6 @@ const currentSort = computed({
 const searchQuery = ref(storeSearchQuery?.value ?? "");
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
 
-// Синхронизация с store при сбросе
 watch(
   storeSearchQuery,
   (newValue) => {
@@ -470,6 +471,13 @@ const refetch = () => itemsQuery?.refetch();
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  box-sizing: border-box;
+  max-width: calc(100vw - 60px);
+  overflow-x: auto;  
+
+   @media (max-width: 1024px) {
+    max-width: calc(100vw - 48px);
+  }
 
   h2 {
     margin: 6px 0 0;

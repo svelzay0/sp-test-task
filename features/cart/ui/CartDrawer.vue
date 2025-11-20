@@ -6,11 +6,12 @@
           <header class="cart-drawer__head">
             <div class="cart-drawer__head-left">
               <button type="button" class="btn-orange btn-square">
-                <NuxtImg
+                <img
                   class="flag"
                   src="/assets/icons/cart.svg"
                   width="24"
                   height="24"
+                  alt="Cart"
                   aria-hidden="true"
                 />
               </button>

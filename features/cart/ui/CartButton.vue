@@ -2,11 +2,12 @@
   <div class="action-item cart-block" @click="cart.toggle()">
     <div class="cart-icon-wrapper">
       <button type="button" class="btn-orange btn-square">
-        <NuxtImg
+        <img
           class="flag"
           src="/assets/icons/cart.svg"
           width="24"
           height="24"
+          alt="Cart"
           aria-hidden="true"
         />
       </button>
@@ -23,7 +24,7 @@
     </div>
 
     <button type="button" class="btn-collapse">
-      <NuxtImg
+      <img
         src="/assets/icons/chevron-down-gray.svg"
         alt="Chevron down"
         width="24"

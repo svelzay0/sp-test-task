@@ -72,7 +72,6 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
       const types: MarketFilterType[] = selectedTypes.map((type) => {
         const descriptor: MarketFilterType = { type };
 
-        // Если выбрана хотя бы 1 редкость, добавляем rarities в каждый тип
         if (state.rarities && state.rarities.length > 0) {
           descriptor.rarities = [...state.rarities];
         }

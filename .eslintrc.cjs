@@ -29,6 +29,8 @@ module.exports = {
     defineEventHandler: "readonly",
     useRuntimeConfig: "readonly",
     useRequestFetch: "readonly",
+    useAsyncData: "readonly",
+    useNuxtApp: "readonly",
     callOnce: "readonly",
     clearError: "readonly",
     $fetch: "readonly",

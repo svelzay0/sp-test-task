@@ -5,7 +5,12 @@
         <div class="main-header__content">
           <div class="main-header__brand">
             <NuxtLink class="main-header__logo" to="/">
-              <NuxtImg src="/logo.svg" alt="StarPets" width="201" height="40" />
+              <img
+                :src="logoSrc"
+                alt="StarPets"
+                :width="logoWidth"
+                :height="logoHeight"
+              />
             </NuxtLink>
 
             <nav class="main-header__nav">
@@ -31,7 +36,7 @@
                 <div class="label">Ваш баланс</div>
               </div>
               <button class="btn-orange btn-square">
-                <NuxtImg
+                <img
                   src="/assets/icons/plus-icon.svg"
                   alt="Plus"
                   width="24"
@@ -42,7 +47,7 @@
 
             <div class="action-item profile-block">
               <button type="button" class="chip chip--flag">
-                <NuxtImg
+                <img
                   class="flag"
                   src="/assets/icons/country-russia.svg"
                   alt="Россия"
@@ -75,7 +80,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { storeToRefs } from "pinia";
+import { useWindowSize } from "@vueuse/core";
 import CartButton from "~/features/cart/ui/CartButton.vue";
 import { useUserStore } from "~/entities/user";
 import { formatCurrency } from "~/shared/lib/currency";
@@ -90,6 +97,13 @@ const navLinks = [
 
 const userStore = useUserStore();
 const { profile } = storeToRefs(userStore);
+
+const { width } = useWindowSize();
+const isMobile = computed(() => (width.value ?? 1920) < 1024);
+
+const logoSrc = computed(() => (isMobile.value ? "/logo-mob.svg" : "/logo.svg"));
+const logoWidth = computed(() => (isMobile.value ? 33 : 201));
+const logoHeight = computed(() => (isMobile.value ? 25 : 40));
 </script>
 
 <style scoped lang="scss">
@@ -131,9 +145,6 @@ const { profile } = storeToRefs(userStore);
   align-items: center;
   gap: 48px;
   height: inherit;
-  @media (max-width: 744px) {
-    display: none;
-  }
 }
 
 .main-header__logo img {
@@ -291,7 +302,6 @@ const { profile } = storeToRefs(userStore);
 @media (max-width: 768px) {
   .main-header__content {
     gap: 16px;
-    justify-content: end;
   }
 
   .main-header__actions {

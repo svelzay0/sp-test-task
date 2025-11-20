@@ -9,6 +9,17 @@ export default defineNuxtConfig({
 
   modules: ["@pinia/nuxt", "@nuxt/image"],
 
+  image: {
+    formats: ["webp", "avif"],
+    domains: [],
+    provider: "ipx",
+    ipx: {
+      sharp: {},
+    },
+    // Исключаем SVG из обработки - они будут загружаться напрямую
+    quality: 80,
+  },
+
   plugins: ["~/plugins/vue-query"],
 
   css: ["~/app/assets/styles/main.scss"],

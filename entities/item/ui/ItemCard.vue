@@ -24,11 +24,12 @@
         <strong>{{ formattedPrice }}</strong>
       </div>
       <button type="button" class="btn-orange btn-square item-card__add-btn">
-        <NuxtImg
+        <img
           class="flag"
           src="/assets/icons/cart.svg"
           width="24"
           height="24"
+          alt="Cart"
           aria-hidden="true"
           @click="handleAdd"
         />

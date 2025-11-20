@@ -1,4 +1,3 @@
-// entities/item/model/store.ts
 import { defineStore } from "pinia";
 import { computed, ref, type Ref } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
@@ -17,7 +16,6 @@ export const useItemsStore = defineStore("items", () => {
   ): ItemsQueryWrapper<TItem> {
     const { fetchItems } = useItemsApi();
 
-    // Стабилизируем payload для queryKey, чтобы избежать двойной загрузки
     const stablePayload = computed(() => {
       const value = payload.value;
       return JSON.stringify(value);
@@ -36,7 +34,6 @@ export const useItemsStore = defineStore("items", () => {
       staleTime: 1000 * 30,
     });
 
-    // Безопасные значения по умолчанию
     const defaultData = ref<InfinitePages<TItem> | undefined>(undefined);
     const defaultError = ref<Error | null>(null);
     const defaultIsPending = ref(true);
