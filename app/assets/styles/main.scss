@@ -88,18 +88,6 @@ button {
   }
 }
 
-.catalog-filters__group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  h3 {
-    margin: 0;
-    font-size: 0.95rem;
-    color: var(--color-text-primary);
-  }
-}
-
 .pill-grid {
   display: flex;
   flex-wrap: wrap;

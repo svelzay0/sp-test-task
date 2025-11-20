@@ -129,11 +129,23 @@ if (storePrice) {
 }
 
 const handlePriceFromInput = () => {
-  filters.setPriceMin(priceFrom.value);
+  const value = priceFrom.value;
+  // Убираем пустые строки, NaN и undefined
+  if (value === undefined || value === null || value === "" || Number.isNaN(value)) {
+    filters.setPriceMin(undefined);
+  } else {
+    filters.setPriceMin(value);
+  }
 };
 
 const handlePriceToInput = () => {
-  filters.setPriceMax(priceTo.value);
+  const value = priceTo.value;
+  // Убираем пустые строки, NaN и undefined
+  if (value === undefined || value === null || value === "" || Number.isNaN(value)) {
+    filters.setPriceMax(undefined);
+  } else {
+    filters.setPriceMax(value);
+  }
 };
 
 const handleReset = () => {
@@ -152,7 +164,7 @@ const handleReset = () => {
   padding: 16px 24px;
   background: var(--color-bg-raised);
   border-right: 1px solid var(--color-border-light);
-  height: fit-content;
+  height: 100vh;
 }
 
 .price-range {
@@ -351,7 +363,6 @@ hr {
 
 @media (max-width: 1024px) {
   .catalog-filters {
-    padding: 20px 24px;
     border-right: none;
     height: auto;
   }

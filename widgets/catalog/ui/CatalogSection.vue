@@ -15,14 +15,14 @@
                   ✕
                 </button>
               </header>
-              <CatalogFilters />
+              <LazyCatalogFilters />
             </aside>
           </div>
         </transition>
       </Teleport>
     </ClientOnly>
 
-    <CatalogFilters class="catalog-layout__filters" />
+    <LazyCatalogFilters class="catalog-layout__filters" />
 
     <div class="catalog-layout__content">
       <section class="catalog-hero glass-panel">
@@ -323,7 +323,7 @@
         </div>
       </div>
 
-      <div v-if="itemsQuery.isPending.value && !items.length" class="grid">
+      <div v-if="itemsQuery.isPending.value && !itemsQuery.isFetchingNextPage.value" class="grid">
         <div v-for="index in amount ?? 72" :key="index" class="skeleton-card" />
       </div>
 
@@ -402,7 +402,9 @@ import {
 import { storeToRefs } from "pinia";
 import { useIntersectionObserver, useWindowSize } from "@vueuse/core";
 import { Teleport } from "vue";
-import CatalogFilters from "~/features/catalog-filters/ui/CatalogFilters.vue";
+const LazyCatalogFilters = defineAsyncComponent(
+  () => import("~/features/catalog-filters/ui/CatalogFilters.vue")
+);
 const LazyItemCard = defineAsyncComponent(
   () => import("~/entities/item/ui/ItemCard.vue")
 );
@@ -464,7 +466,7 @@ const payload = computed(() => {
   return structuredClone(payloadValue);
 });
 
-// SSR: загружаем первую страницу через useAsyncData
+// SSR: загружаем первую страницу через useAsyncData (только на сервере, один раз)
 const { fetchItems } = useItemsApi();
 const initialPayload = computed(() => ({
   ...payload.value,
@@ -472,11 +474,13 @@ const initialPayload = computed(() => ({
 }));
 
 const { data: initialData } = await useAsyncData(
-  () => `items-initial-${JSON.stringify(initialPayload.value)}`,
+  "items-initial-ssr", // Статический ключ, чтобы не перезапускался при изменении фильтров
   () => fetchItems(initialPayload.value),
   {
     server: true,
+    client: false, // Отключаем на клиенте, чтобы избежать двойных запросов
     default: () => null,
+    watch: false, // Отключаем watch, чтобы не перезапускался при изменении payload
   }
 );
 
@@ -529,7 +533,7 @@ const handleSearchInput = () => {
   }
   searchTimeout = setTimeout(() => {
     filters.setSearchQuery(searchQuery.value);
-  }, 300);
+  }, 500);
 };
 
 const isSortOpen = ref(false);
@@ -603,7 +607,6 @@ const refetch = () => itemsQuery?.refetch();
   top: var(--header-lg-greater-height);
   align-self: start;
   overflow-y: auto;
-  height: 100vh;
   max-width: 320px;
 }
 
@@ -794,7 +797,7 @@ const refetch = () => itemsQuery?.refetch();
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  height: 40px;
+  height: 41px;
 }
 
 .active-filters {
@@ -998,7 +1001,7 @@ const refetch = () => itemsQuery?.refetch();
     padding: 24px;
   }
 
-  .catalog-layout__filters {
+  .catalog-layout__filters.catalog-layout__filters {
     display: none;
   }
 }

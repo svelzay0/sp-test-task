@@ -112,10 +112,22 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
       }
 
       const price: FilterPrice = {};
-      if (state.price && state.price.min !== undefined && state.price.min !== null) {
+      if (
+        state.price &&
+        state.price.min !== undefined &&
+        state.price.min !== null &&
+        state.price.min !== "" &&
+        !Number.isNaN(state.price.min)
+      ) {
         price.min = state.price.min;
       }
-      if (state.price && state.price.max !== undefined && state.price.max !== null) {
+      if (
+        state.price &&
+        state.price.max !== undefined &&
+        state.price.max !== null &&
+        state.price.max !== "" &&
+        !Number.isNaN(state.price.max)
+      ) {
         price.max = state.price.max;
       }
       if (Object.keys(price).length > 0) {
