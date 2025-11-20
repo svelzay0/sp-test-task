@@ -1,18 +1,21 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: "2025-11-18",
   devtools: { enabled: true },
 
-  modules: ["vuetify-nuxt-module", "@pinia/nuxt", "nuxt-qrcode"],
+  modules: ["@pinia/nuxt", "@nuxt/image"],
+
+  plugins: ["~/plugins/vue-query"],
+
+  css: ["~/app/assets/styles/main.scss"],
 
   runtimeConfig: {
     public: {
-      dummyJsonBase: "https://dummyjson.com",
+      marketApiBase: "https://market.apineural.com/api/store",
     },
   },
 
@@ -27,8 +30,21 @@ export default defineNuxtConfig({
 
   components: {
     dirs: [
-      { path: "~/entities/", pathPrefix: false, ignore: ["**/model/**"] },
-      { path: "~/features/", pathPrefix: false, ignore: ["**/model/**"] },
+      {
+        path: "~/entities/",
+        pathPrefix: false,
+        ignore: ["**/model/**", "**/types/**"],
+      },
+      {
+        path: "~/features/",
+        pathPrefix: false,
+        ignore: ["**/model/**", "**/types/**"],
+      },
+      {
+        path: "~/widgets/",
+        pathPrefix: false,
+        ignore: ["**/model/**", "**/types/**"],
+      },
     ],
   },
 
@@ -38,6 +54,7 @@ export default defineNuxtConfig({
       "composables",
       "~/entities/**/*/model",
       "~/features/**/*/model",
+      "~/widgets/**/*/model",
     ],
   },
 });

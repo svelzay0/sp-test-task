@@ -1,0 +1,47 @@
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+  CACHE_PATH: node_modules/
+
+default:
+  image: node:20
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ${CACHE_PATH}
+    policy: pull-push
+  before_script:
+    - npm ci
+
+lint:
+  stage: lint
+  script:
+    - npm run lint
+
+test:
+  stage: test
+  script:
+    - npm run test
+
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - .output
+    expire_in: 1 day
+
+deploy:
+  stage: deploy
+  needs:
+    - build
+  script:
+    - echo "Deploy step placeholder. Replace with rsync/ssh/docker push commands."
+  when: manual
+

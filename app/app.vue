@@ -1,20 +1,17 @@
 <template>
+  <NuxtLoadingIndicator />
   <NuxtLayout>
-    <v-app theme="dark">
-      <v-main>
-        <NuxtErrorBoundary>
-          <template #error="{ error }">
-            <div class="error-page">
-              <p style="color: red">
-                An error occurred: {{ error?.message ?? String(error) }}
-              </p>
-            </div>
-          </template>
+    <NuxtErrorBoundary>
+      <template #error="{ error }">
+        <div class="error-page">
+          <p style="color: red">
+            An error occurred: {{ error?.message ?? String(error) }}
+          </p>
+        </div>
+      </template>
 
-          <NuxtPage />
-        </NuxtErrorBoundary>
-      </v-main>
-    </v-app>
+      <NuxtPage />
+    </NuxtErrorBoundary>
   </NuxtLayout>
 </template>
 

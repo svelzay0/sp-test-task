@@ -1,75 +1,40 @@
-# Nuxt Minimal Starter
+# SP Marketplace · Nuxt 4 + FSD
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Тестовое задание для интерфейса маркетплейса SP. Проект построен на Nuxt 4 (SSR), TypeScript, Pinia и TanStack Query с архитектурой по принципам Feature-Sliced Design (FSD). Стилизация выполнена на SCSS.
 
-## Setup
+## Основные возможности
 
-Make sure to install dependencies:
+- Хедер с моковыми страницами, балансом пользователя и корзиной.
+- Реактивные фильтры (типы предметов, редкость, свойства) с мгновенным запросом к API.
+- Список товаров по TanStack Query с серверным прелоадом и skeleton-состояниями.
+- Полноценная корзина: изменение количества, удаление, проверка баланса и покупка.
+- Моковый серверный хендлер для профиля пользователя, прокси-ручка для внешнего API.
+
+## Требования
+
+- Node.js 18+
+- npm (по умолчанию)
+
+## Установка зависимостей
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Скрипты
 
-Start the development server on `http://localhost:3000`:
+| Скрипт         | Назначение                                  |
+| -------------- | ------------------------------------------- |
+| `npm run dev`  | Дев-сервер `http://localhost:3000` (SSR)    |
+| `npm run build`| Продакшн-сборка Nuxt                        |
+| `npm run start`| Запуск собранного приложения (Nitro server) |
+| `npm run lint` | Проверка ESLint                             |
 
-```bash
-# npm
-npm run dev
+## Переменные окружения
 
-# pnpm
-pnpm dev
+По умолчанию используется публичный API `https://market.apineural.com/api/store`. При необходимости можно поменять базовый URL в `nuxt.config.ts` (`runtimeConfig.public.marketApiBase`).
 
-# yarn
-yarn dev
+## Дополнительно
 
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Архитектура каталога оформлена в соответствии с [feature-sliced.design](https://feature-sliced.design/).
+- Для форматирования валюты используется `Intl.NumberFormat`, поддерживается мультидобавление в корзину и списание средств.

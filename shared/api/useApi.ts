@@ -1,79 +1,105 @@
 import { ofetch } from "ofetch";
 import type { FetchOptions } from "ofetch";
-import type { ApiResponseWrapper, ApiListPayload } from "~/shared/types/api";
-
-function isApiListPayload<T>(payload: unknown): payload is ApiListPayload<T> {
-  return (
-    typeof payload === "object" &&
-    payload !== null &&
-    "list" in payload &&
-    Array.isArray((payload as ApiListPayload<T>).list)
-  );
-}
 
 export const useApi = () => {
   const config = useRuntimeConfig();
-  const apiInstance = ofetch.create({
-    baseURL: config.public.apiBaseUrl as string,
-    onRequest({ request, options }) {
-      const headers = new Headers(options.headers);
-      if (config.public.basicAuth) {
-        headers.set(
-          "Authorization",
-          `Basic ${config.public.basicAuth as string}`
-        );
-      }
 
+  // Для внешних API используем marketApiBase
+  const externalApiInstance = ofetch.create({
+    baseURL: config.public.marketApiBase as string,
+    onRequest({ options }) {
+      const headers = new Headers(options.headers);
+      // Можно добавить дополнительные заголовки при необходимости
       options.headers = headers;
     },
-
-    async onResponse({ request, response, options }) {
-      const apiResponse = response._data as ApiResponseWrapper<unknown>;
-      if (!apiResponse.status) {
-        throw new Error(
-          apiResponse.message || "Произошла ошибка при выполнении запроса к API"
-        );
-      }
-
-      const resultPayload = apiResponse.result;
-      if (isApiListPayload(resultPayload)) {
-        response._data = resultPayload.list;
-      } else {
-        response._data = resultPayload;
-      }
-    },
-
-    async onResponseError({ request, response, options }) {
+    async onResponseError({ response }) {
+      // eslint-disable-next-line no-console
       console.error(
-        `[API Error] ${response.status}: ${response.statusText}`,
-        response._data
+        `[External API Error] ${response.status}: ${response.statusText}`,
+        response._data,
       );
     },
   });
 
+  // Для внутренних роутов Nuxt используем $fetch (работает и в SSR, и на клиенте)
+  // В серверных роутах можно использовать useRequestFetch, но $fetch тоже работает
+  const internalFetch = $fetch;
+
   return {
-    get: <T>(url: string, options?: FetchOptions<"json">) =>
-      apiInstance<T>(url, { ...options, method: "GET" }),
+    // Методы для внешнего API
+    external: {
+      get: <T>(url: string, options?: FetchOptions<"json">) =>
+        externalApiInstance<T>(url, { ...options, method: "GET" }),
 
-    post: <T, D extends Record<string, any>>(
+      post: <T, D extends Record<string, unknown>>(
+        url: string,
+        data: D,
+        options?: FetchOptions<"json">,
+      ) =>
+        externalApiInstance<T>(url, { ...options, method: "POST", body: data }),
+
+      put: <T, D extends Record<string, unknown>>(
+        url: string,
+        data: D,
+        options?: FetchOptions<"json">,
+      ) =>
+        externalApiInstance<T>(url, { ...options, method: "PUT", body: data }),
+
+      patch: <T, D extends Record<string, unknown>>(
+        url: string,
+        data: Partial<D>,
+        options?: FetchOptions<"json">,
+      ) =>
+        externalApiInstance<T>(url, {
+          ...options,
+          method: "PATCH",
+          body: data,
+        }),
+
+      delete: <T>(url: string, options?: FetchOptions<"json">) =>
+        externalApiInstance<T>(url, { ...options, method: "DELETE" }),
+    },
+
+    // Методы для внутренних роутов Nuxt (SSR-safe)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    get: <T>(url: string, options?: any) =>
+      internalFetch<T>(url, { ...options, method: "GET" }),
+
+    post: <T, D extends Record<string, unknown>>(
       url: string,
       data: D,
-      options?: FetchOptions<"json">
-    ) => apiInstance<T>(url, { ...options, method: "POST", body: data }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      options?: any,
+    ) =>
+      internalFetch<T>(url, {
+        ...options,
+        method: "POST",
+        body: data,
+      }),
 
-    put: <T, D extends Record<string, any>>(
+    put: <T, D extends Record<string, unknown>>(
       url: string,
       data: D,
-      options?: FetchOptions<"json">
-    ) => apiInstance<T>(url, { ...options, method: "PUT", body: data }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      options?: any,
+    ) =>
+      internalFetch<T>(url, { ...options, method: "PUT", body: data }),
 
-    patch: <T, D extends Record<string, any>>(
+    patch: <T, D extends Record<string, unknown>>(
       url: string,
       data: Partial<D>,
-      options?: FetchOptions<"json">
-    ) => apiInstance<T>(url, { ...options, method: "PATCH", body: data }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      options?: any,
+    ) =>
+      internalFetch<T>(url, {
+        ...options,
+        method: "PATCH",
+        body: data,
+      }),
 
-    delete: <T>(url: string, options?: FetchOptions<"json">) =>
-      apiInstance<T>(url, { ...options, method: "DELETE" }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete: <T>(url: string, options?: any) =>
+      internalFetch<T>(url, { ...options, method: "DELETE" }),
   };
 };
+
