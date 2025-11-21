@@ -104,14 +104,20 @@ docker-compose up --build
 
 По умолчанию используется публичный API `https://market.apineural.com/api/store`. 
 
-Для изменения базового URL отредактируйте `nuxt.config.ts`:
-```typescript
-runtimeConfig: {
-  public: {
-    marketApiBase: "https://your-api-url.com/api/store",
-  },
-}
+Для изменения базового URL создайте файл `.env` в корне проекта:
+
+```bash
+# Скопируйте пример файла
+cp .env.example .env
 ```
+
+Или создайте `.env` вручную:
+
+```env
+MARKET_API_BASE=https://market.apineural.com/api/store
+```
+
+Для изменения URL отредактируйте значение `MARKET_API_BASE` в файле `.env`.
 
 ## 📁 Архитектура
 

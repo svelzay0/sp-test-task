@@ -10,13 +10,10 @@ export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "@nuxt/image"],
 
   image: {
-    formats: ["webp", "avif"],
+    format: ["webp", "avif"],
     domains: [],
     provider: "ipx",
-    ipx: {
-      sharp: {},
-    },
-    // Исключаем SVG из обработки - они будут загружаться напрямую
+    ipx: {},
     quality: 80,
   },
 
@@ -26,7 +23,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      marketApiBase: "https://market.apineural.com/api/store",
+      marketApiBase: process.env.MARKET_API_BASE || "https://market.apineural.com/api/store",
     },
   },
 
