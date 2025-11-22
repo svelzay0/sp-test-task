@@ -27,8 +27,8 @@
   --color-accent-strong: #a85518;
   --color-skeleton-light: #ededf5;
   --color-skeleton-mid: #cdcddd;
-  --color-text-label: #6b7280; // Улучшен контраст с #9ca3af до #6b7280 для лучшей читаемости
-  --color-text-note: #a1a1aa;
+  --color-text-label: #4b5563; // Улучшен контраст для соответствия WCAG AA (минимум 4.5:1)
+  --color-text-note: #6b7280; // Улучшен контраст с #a1a1aa до #6b7280 для лучшей читаемости
   --color-gradient-start: #ffb347;
   --color-gradient-end: #ff832b;
   --color-badge-blue: #38bdf8;

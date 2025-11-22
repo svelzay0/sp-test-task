@@ -80,7 +80,7 @@ button {
 
   .label {
     font-size: 13px;
-    color: var(--color-text-note);
+    color: var(--color-text-label); // Используем более темный цвет для лучшего контраста
     margin-top: 2px;
   }
 }
