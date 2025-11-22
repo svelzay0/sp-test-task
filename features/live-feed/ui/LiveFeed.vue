@@ -8,6 +8,7 @@
             alt="Statistics illustration"
             width="120"
             height="120"
+            fetchpriority="high"
           />
         </div>
         <div class="live-feed-stats-card__content">
