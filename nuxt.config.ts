@@ -93,9 +93,9 @@ export default defineNuxtConfig({
             ? [
                 "default-src 'self'",
                 "script-src 'self' 'unsafe-inline'", // unsafe-inline необходим для inline scripts Nuxt (гидратация)
-                "style-src 'self' 'unsafe-inline'", // unsafe-inline необходим для inline стилей Vue
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com", // Разрешаем загрузку стилей из Google Fonts (если используется)
                 "img-src 'self' data: https: cdn.starpets.pw starpets.pw",
-                "font-src 'self' data:",
+                "font-src 'self' data: https://fonts.gstatic.com", // Разрешаем загрузку шрифтов из Google Fonts (если используется)
                 "connect-src 'self' https://market.apineural.com",
                 "frame-ancestors 'self'",
                 "base-uri 'self'",
