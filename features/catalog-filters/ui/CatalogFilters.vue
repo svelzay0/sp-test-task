@@ -50,6 +50,8 @@
           :class="{
             'rarity-chip--active': filters.rarities.includes(option.value),
           }"
+          :aria-label="`${filters.rarities.includes(option.value) ? 'Убрать' : 'Выбрать'} редкость ${option.label}`"
+          :aria-pressed="filters.rarities.includes(option.value)"
           @click="filters.toggleRarity(option.value)"
         />
       </div>

@@ -1,13 +1,17 @@
 <template>
   <div class="action-item cart-block" @click="cart.toggle()">
     <div class="cart-icon-wrapper">
-      <button type="button" class="btn-orange btn-square">
+      <button
+        type="button"
+        class="btn-orange btn-square"
+        aria-label="Открыть корзину"
+      >
         <img
           class="flag"
           src="/assets/icons/cart.svg"
           width="24"
           height="24"
-          alt="Cart"
+          alt=""
           aria-hidden="true"
         />
       </button>
@@ -23,12 +27,18 @@
       </div>
     </div>
 
-    <button type="button" class="btn-collapse">
+    <button
+      type="button"
+      class="btn-collapse"
+      :aria-label="cart.isOpen ? 'Закрыть корзину' : 'Открыть корзину'"
+      :aria-expanded="cart.isOpen"
+    >
       <img
         src="/assets/icons/chevron-down-gray.svg"
-        alt="Chevron down"
+        alt=""
         width="24"
         height="24"
+        aria-hidden="true"
       />
     </button>
   </div>

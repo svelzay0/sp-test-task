@@ -8,7 +8,7 @@
   --color-border-light: rgba(15, 23, 42, 0.06);
   --color-primary: #ff8f1f;
   --color-primary-strong: #ffaf3a;
-  --color-muted: rgba(17, 24, 39, 0.55);
+  --color-muted: rgba(17, 24, 39, 0.7); // Улучшен контраст с 0.55 до 0.7 для лучшей читаемости
   --color-danger: #f87171;
   --color-text-primary: #111827;
   --color-text-strong: #13141a;
@@ -27,7 +27,7 @@
   --color-accent-strong: #a85518;
   --color-skeleton-light: #ededf5;
   --color-skeleton-mid: #cdcddd;
-  --color-text-label: #9ca3af;
+  --color-text-label: #6b7280; // Улучшен контраст с #9ca3af до #6b7280 для лучшей читаемости
   --color-text-note: #a1a1aa;
   --color-gradient-start: #ffb347;
   --color-gradient-end: #ff832b;

@@ -4,7 +4,7 @@
 
     <div class="item-card__media">
       <NuxtImg
-        :src="item.imageUri"
+        :src="proxiedImageUrl"
         :alt="item.name"
         width="128"
         height="128"
@@ -23,15 +23,19 @@
         <h4>{{ item.name }}</h4>
         <strong>{{ formattedPrice }}</strong>
       </div>
-      <button type="button" class="btn-orange btn-square item-card__add-btn">
+      <button
+        type="button"
+        class="btn-orange btn-square item-card__add-btn"
+        :aria-label="`Добавить ${item.name} в корзину`"
+        @click="handleAdd"
+      >
         <img
           class="flag"
           src="/assets/icons/cart.svg"
           width="24"
           height="24"
-          alt="Cart"
+          alt=""
           aria-hidden="true"
-          @click="handleAdd"
         />
       </button>
     </footer>
@@ -44,6 +48,7 @@ import type { Item } from "~/entities/item";
 import { formatCurrency } from "~/shared/lib/currency";
 import { useCartStore } from "~/features/cart/model/store";
 import { useUserStore } from "~/entities/user";
+import { useImageProxy } from "~/shared/lib/useImageProxy";
 
 const props = defineProps<{
   item: Item;
@@ -51,6 +56,9 @@ const props = defineProps<{
 
 const userStore = useUserStore();
 const cartStore = useCartStore();
+const { getProxiedImageUrl } = useImageProxy();
+
+const proxiedImageUrl = computed(() => getProxiedImageUrl(props.item.imageUri));
 
 const formattedPrice = computed(() =>
   formatCurrency(props.item.price, userStore.currency)

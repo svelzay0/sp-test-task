@@ -45,22 +45,30 @@
                 </div>
                 <div class="label">Ваш баланс</div>
               </div>
-              <button class="btn-orange btn-square">
+              <button
+                class="btn-orange btn-square"
+                aria-label="Пополнить баланс"
+              >
                 <img
                   src="/assets/icons/plus-icon.svg"
-                  alt="Plus"
+                  alt=""
                   width="24"
                   height="24"
+                  aria-hidden="true"
                 />
               </button>
             </div>
 
             <div v-if="profile" class="action-item profile-block">
-              <button type="button" class="chip chip--flag">
+              <button
+                type="button"
+                class="chip chip--flag"
+                aria-label="Выбрать страну"
+              >
                 <img
                   class="flag"
                   src="/assets/icons/country-russia.svg"
-                  alt="Россия"
+                  alt=""
                   width="34"
                   height="34"
                   aria-hidden="true"
