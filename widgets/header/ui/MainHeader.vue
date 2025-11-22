@@ -5,12 +5,22 @@
         <div class="main-header__content">
           <div class="main-header__brand">
             <NuxtLink class="main-header__logo" to="/">
-              <img
-                :src="logoSrc"
-                alt="StarPets"
-                :width="logoWidth"
-                :height="logoHeight"
-              />
+              <ClientOnly>
+                <img
+                  :src="logoSrc"
+                  alt="StarPets"
+                  :width="logoWidth"
+                  :height="logoHeight"
+                />
+                <template #fallback>
+                  <img
+                    src="/logo.svg"
+                    alt="StarPets"
+                    width="201"
+                    height="40"
+                  />
+                </template>
+              </ClientOnly>
             </NuxtLink>
 
             <nav class="main-header__nav">
@@ -99,7 +109,11 @@ const userStore = useUserStore();
 const { profile } = storeToRefs(userStore);
 
 const { width } = useWindowSize();
-const isMobile = computed(() => (width.value ?? 1920) < 1024);
+const isClient = import.meta.client;
+const isMobile = computed(() => {
+  if (!isClient) return false;
+  return (width.value ?? 1920) < 1024;
+});
 
 const logoSrc = computed(() => (isMobile.value ? "/logo-mob.svg" : "/logo.svg"));
 const logoWidth = computed(() => (isMobile.value ? 33 : 201));

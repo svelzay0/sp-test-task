@@ -176,7 +176,7 @@ button {
   }
 
   @include media-1024 {
-    display: block;
+    display: flex;
   }
 }
 
@@ -344,9 +344,14 @@ hr {
   }
 }
 
-.profile-block,
-.balance-block {
-  @include media-1024 {
+.profile-block {
+  @media (max-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.balance-block .btn-orange {
+  @media (max-width: 1024px) {
     display: none !important;
   }
 }

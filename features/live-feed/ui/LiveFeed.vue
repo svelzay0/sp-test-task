@@ -262,8 +262,10 @@ const generateGraphPath = (index: number): string => {
   border: 1px solid var(--color-border-light);
   min-height: 120px;
   min-width: 200px;
+  width: 200px;
   flex-shrink: 0;
   overflow: hidden;
+  box-sizing: border-box;
 
   &--color-0 .live-feed-card__graph {
     color: #3b82f6;
@@ -301,6 +303,20 @@ const generateGraphPath = (index: number): string => {
   left: 0;
 }
 
+.live-feed-card__graph {
+  position: absolute;
+  left: -16px;
+  right: -16px;
+  bottom: 0;
+  height: 50px;
+  z-index: 1;
+  pointer-events: none;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
 
 .live-feed-card__content {
   position: relative;
@@ -308,14 +324,19 @@ const generateGraphPath = (index: number): string => {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  height: 100%;
   min-height: 88px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .live-feed-card__info {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .live-feed-card__price {
@@ -339,6 +360,7 @@ const generateGraphPath = (index: number): string => {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 8px;
 
   img {
     width: 100%;
@@ -430,6 +452,18 @@ const generateGraphPath = (index: number): string => {
 
   .live-feed-card {
     min-width: 160px;
+    width: 160px;
+    padding: 12px;
+  }
+  
+  .live-feed-card__graph {
+    left: -12px;
+    right: -12px;
+  }
+  
+  .live-feed-card__illustration {
+    width: 60px;
+    height: 60px;
   }
 }
 </style>

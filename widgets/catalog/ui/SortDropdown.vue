@@ -54,7 +54,7 @@
     </button>
     <div v-if="isOpen" class="sort-dropdown__menu">
       <button
-        v-for="option in sortOptions"
+        v-for="option in SORT_OPTIONS"
         :key="option.value"
         type="button"
         class="sort-option"
@@ -223,14 +223,14 @@ onUnmounted(() => {
 .sort-dropdown__menu {
   position: absolute;
   top: calc(100% + 8px);
-  right: 0;
   min-width: 200px;
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   box-shadow: var(--shadow-card);
-  z-index: 100;
+  z-index: 1000;
   overflow: hidden;
+  display: block;
 }
 
 .sort-option {

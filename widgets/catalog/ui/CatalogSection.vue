@@ -35,19 +35,21 @@
         <TypePills :filter-types="filterTypes" />
 
         <div class="search-sort-row">
-          <button
-            v-if="isMobile && isClient"
-            type="button"
-            class="filters-toggle-btn"
-            @click="openFilters"
-          >
-            <img
-              src="/assets/icons/filter-icon.svg"
-              alt="Filters"
-              width="20"
-              height="20"
-            />
-          </button>
+          <ClientOnly>
+            <button
+              v-if="isMobile"
+              type="button"
+              class="filters-toggle-btn"
+              @click="openFilters"
+            >
+              <img
+                src="/assets/icons/filter-icon.svg"
+                alt="Filters"
+                width="20"
+                height="20"
+              />
+            </button>
+          </ClientOnly>
 
           <SearchBar
             :model-value="searchQuery"
