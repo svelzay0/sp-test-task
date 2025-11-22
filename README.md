@@ -1,3 +1,8 @@
+
+<img width="2548" height="1397" alt="image_2025-11-22_13-27-19" src="https://github.com/user-attachments/assets/9ce5a97a-dac5-470a-9577-e44b8269f8ce" />
+<img width="2559" height="1399" alt="image_2025-11-22_13-29-49" src="https://github.com/user-attachments/assets/0f3cb797-12c2-4e92-9985-91fc264fcc46" />
+
+
 # StarPets Marketplace · Nuxt 4 + FSD
 
 Маркетплейс для покупки игровых предметов StarPets. Проект построен на Nuxt 4 (SSR), TypeScript, Pinia и TanStack Query с архитектурой по принципам Feature-Sliced Design (FSD). Стилизация выполнена на SCSS.
