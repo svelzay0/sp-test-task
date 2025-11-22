@@ -25,9 +25,8 @@ useHead({
     { name: "description", content: "Каталог товаров на любой вкус и цвет" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "format-detection", content: "telephone=no" },
-    // Security meta tags
+    // Security meta tags (X-Frame-Options убран, так как он устанавливается через HTTP headers)
     { "http-equiv": "X-Content-Type-Options", content: "nosniff" },
-    { "http-equiv": "X-Frame-Options", content: "SAMEORIGIN" },
     { "http-equiv": "X-XSS-Protection", content: "1; mode=block" },
     { "http-equiv": "Referrer-Policy", content: "strict-origin-when-cross-origin" },
     // SEO

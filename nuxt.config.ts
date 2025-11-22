@@ -96,10 +96,10 @@ export default defineNuxtConfig({
           "Content-Security-Policy": process.env.NODE_ENV === "production"
             ? [
                 "default-src 'self'",
-                "script-src 'self'",
+                "script-src 'self' 'unsafe-inline'", // unsafe-inline необходим для inline scripts Nuxt (гидратация)
                 "style-src 'self' 'unsafe-inline'", // unsafe-inline необходим для inline стилей Vue
                 "img-src 'self' data: https: cdn.starpets.pw starpets.pw",
-                "font-src 'self' data:",
+                "font-src 'self' data: https://fonts.gstatic.com", // Разрешаем загрузку шрифтов из Google Fonts
                 "connect-src 'self' https://market.apineural.com",
                 "frame-ancestors 'self'",
                 "base-uri 'self'",
@@ -113,7 +113,7 @@ export default defineNuxtConfig({
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Для Nuxt devtools
                 "style-src 'self' 'unsafe-inline'",
                 "img-src 'self' data: https: cdn.starpets.pw starpets.pw",
-                "font-src 'self' data:",
+                "font-src 'self' data: https://fonts.gstatic.com", // Разрешаем загрузку шрифтов из Google Fonts
                 "connect-src 'self' https://market.apineural.com ws: wss:", // WebSocket для HMR
                 "frame-ancestors 'self'",
                 "base-uri 'self'",
