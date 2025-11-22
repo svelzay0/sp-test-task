@@ -12,6 +12,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         staleTime: 1000 * 60 * 5, // 5 минут
         gcTime: 1000 * 60 * 30, // 30 минут (ранее cacheTime)
         refetchOnWindowFocus: false,
+        refetchOnMount: false, // Не перезапрашивать при монтировании, если данные свежие
+        refetchOnReconnect: false, // Не перезапрашивать при восстановлении соединения
         retry: 1,
       },
     },

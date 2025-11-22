@@ -183,6 +183,21 @@ const { data: initialData } = await useAsyncData(
   {
     server: true,
     default: () => null,
+    getCachedData: () => {
+      // Используем данные из Vue Query кеша, если они есть
+      if (import.meta.client) {
+        const nuxtApp = useNuxtApp();
+        const queryClient = nuxtApp.$queryClient;
+        if (queryClient) {
+          const stablePayload = JSON.stringify(initialPayload.value);
+          const cached = queryClient.getQueryData(["market-items", stablePayload]);
+          if (cached) {
+            return cached.pages?.[0] || null;
+          }
+        }
+      }
+      return undefined;
+    },
   }
 );
 
