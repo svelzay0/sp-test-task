@@ -31,7 +31,8 @@ export const useItemsStore = defineStore("items", () => {
         return pages.length + 1;
       },
       placeholderData: (previous) => previous,
-      staleTime: 1000 * 30,
+      staleTime: 1000 * 60 * 5, // 5 минут
+      gcTime: 1000 * 60 * 30, // 30 минут (ранее cacheTime)
     });
 
     const defaultData = ref<InfinitePages<TItem> | undefined>(undefined);

@@ -1,6 +1,6 @@
 <template>
   <article class="item-card glass-panel">
-    <span class="item-card__badge" :style="{ background: rarityColor }" />
+    <span class="item-card__badge" :class="`item-card__badge--${item.rare}`" />
 
     <div class="item-card__media">
       <NuxtImg
@@ -63,18 +63,6 @@ const metaInfo = computed(
     ${props.item.age ? `· ${props.item.age}` : ""}`
 );
 
-const rarityColor = computed(() => {
-  const map: Record<string, string> = {
-    common: "var(--color-rarity-common)",
-    uncommon: "var(--color-rarity-uncommon)",
-    rare: "var(--color-rarity-rare)",
-    ultra_rare: "var(--color-rarity-ultra)",
-    legendary: "var(--color-rarity-legendary)",
-  };
-
-  return map[props.item.rare] ?? "var(--color-rarity-default)";
-});
-
 const handleAdd = () => {
   cartStore.add(props.item);
 };
@@ -114,8 +102,28 @@ const handleAdd = () => {
   width: 40px;
   height: 4px;
   border-radius: 0 0 999px 999px;
-  background: var(--color-rarity-overlay);
+  background: var(--color-rarity-default);
   z-index: 1;
+
+  &--common {
+    background: var(--color-rarity-common);
+  }
+
+  &--uncommon {
+    background: var(--color-rarity-uncommon);
+  }
+
+  &--rare {
+    background: var(--color-rarity-rare);
+  }
+
+  &--ultra_rare {
+    background: var(--color-rarity-ultra);
+  }
+
+  &--legendary {
+    background: var(--color-rarity-legendary);
+  }
 }
 
 .item-card__media {

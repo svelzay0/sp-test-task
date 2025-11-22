@@ -32,8 +32,8 @@
               class="cart-line"
             >
               <span 
-                class="cart-line__badge" 
-                :style="{ background: getRarityColor(entry.item.rare) }" 
+                class="cart-line__badge"
+                :class="`cart-line__badge--${entry.item.rare}`"
               />
               <NuxtImg
                 :src="entry.item.imageUri"
@@ -141,16 +141,6 @@ const errorMessage = ref("");
 
 const formatMoney = (value: number) => formatCurrency(value, currency.value);
 
-const getRarityColor = (rarity: string) => {
-  const map: Record<string, string> = {
-    common: "var(--color-rarity-common)",
-    uncommon: "var(--color-rarity-uncommon)",
-    rare: "var(--color-rarity-rare)",
-    ultra_rare: "var(--color-rarity-ultra)",
-    legendary: "var(--color-rarity-legendary)",
-  };
-  return map[rarity] ?? "var(--color-rarity-default)";
-};
 
 const handlePurchase = () => {
   errorMessage.value = "";
@@ -258,6 +248,27 @@ const handlePurchase = () => {
   bottom: 0;
   width: 4px;
   z-index: 1;
+  background: var(--color-rarity-default);
+
+  &--common {
+    background: var(--color-rarity-common);
+  }
+
+  &--uncommon {
+    background: var(--color-rarity-uncommon);
+  }
+
+  &--rare {
+    background: var(--color-rarity-rare);
+  }
+
+  &--ultra_rare {
+    background: var(--color-rarity-ultra);
+  }
+
+  &--legendary {
+    background: var(--color-rarity-legendary);
+  }
 }
 
 .cart-line__image {

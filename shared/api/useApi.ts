@@ -1,5 +1,6 @@
 import { ofetch } from "ofetch";
 import type { FetchOptions } from "ofetch";
+import type { FetchRequest } from "ofetch";
 
 export const useApi = () => {
   const config = useRuntimeConfig();
@@ -61,15 +62,13 @@ export const useApi = () => {
     },
 
     // Методы для внутренних роутов Nuxt (SSR-safe)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    get: <T>(url: string, options?: any) =>
+    get: <T>(url: FetchRequest, options?: FetchOptions<"json">) =>
       internalFetch<T>(url, { ...options, method: "GET" }),
 
     post: <T, D extends Record<string, unknown>>(
-      url: string,
+      url: FetchRequest,
       data: D,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      options?: any,
+      options?: FetchOptions<"json">,
     ) =>
       internalFetch<T>(url, {
         ...options,
@@ -78,18 +77,16 @@ export const useApi = () => {
       }),
 
     put: <T, D extends Record<string, unknown>>(
-      url: string,
+      url: FetchRequest,
       data: D,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      options?: any,
+      options?: FetchOptions<"json">,
     ) =>
       internalFetch<T>(url, { ...options, method: "PUT", body: data }),
 
     patch: <T, D extends Record<string, unknown>>(
-      url: string,
+      url: FetchRequest,
       data: Partial<D>,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      options?: any,
+      options?: FetchOptions<"json">,
     ) =>
       internalFetch<T>(url, {
         ...options,
@@ -97,8 +94,7 @@ export const useApi = () => {
         body: data,
       }),
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    delete: <T>(url: string, options?: any) =>
+    delete: <T>(url: FetchRequest, options?: FetchOptions<"json">) =>
       internalFetch<T>(url, { ...options, method: "DELETE" }),
   };
 };

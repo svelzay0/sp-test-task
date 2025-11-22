@@ -9,8 +9,7 @@ import {
   type MarketFilterType,
   type FilterPrice
 } from "~/entities/item";
-
-const DEFAULT_TYPES: ItemType[] = ["transport", "pet", "egg", "potion"];
+import { DEFAULT_TYPES, DEFAULT_ITEMS_PER_PAGE, DEFAULT_CURRENCY, DEFAULT_SORT } from "~/shared/config/filters";
 
 type SortValue = ItemSortKey | `${ItemSortKey}-${"asc" | "desc"}`;
 
@@ -32,9 +31,9 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
     rarities: [],
     levels: [],
     abilities: [],
-    sort: "popularity",
+    sort: DEFAULT_SORT,
     page: 1,
-    amount: 72,
+    amount: DEFAULT_ITEMS_PER_PAGE,
     searchQuery: "",
     price: {},
   }),
@@ -48,8 +47,8 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
             types: DEFAULT_TYPES.map((type) => ({ type })),
           },
           page: 1,
-          amount: 72,
-          currency: "usd",
+          amount: DEFAULT_ITEMS_PER_PAGE,
+          currency: DEFAULT_CURRENCY,
           sort: { popularity: "desc" },
         };
       }
@@ -63,8 +62,8 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
             types: DEFAULT_TYPES.map((type) => ({ type })),
           },
           page: 1,
-          amount: 72,
-          currency: "usd",
+          amount: DEFAULT_ITEMS_PER_PAGE,
+          currency: DEFAULT_CURRENCY,
           sort: { popularity: "desc" },
         };
       }
@@ -137,7 +136,7 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
         filter,
         page: state.page,
         amount: state.amount,
-        currency: "usd",
+        currency: DEFAULT_CURRENCY,
         sort: { [sortKey]: sortDirection },
       };
 
@@ -238,9 +237,9 @@ export const useCatalogFiltersStore = defineStore("catalogFilters", {
       this.rarities = [];
       this.levels = [];
       this.abilities = [];
-      this.sort = "popularity";
-      this.page = 1;
-      this.amount = 72;
+    this.sort = DEFAULT_SORT;
+    this.page = 1;
+    this.amount = DEFAULT_ITEMS_PER_PAGE;
       this.searchQuery = "";
       this.price = {};
     },

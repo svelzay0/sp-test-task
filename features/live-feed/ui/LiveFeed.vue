@@ -46,7 +46,7 @@
             v-for="(entry, index) in entries"
             :key="entry.id"
             class="live-feed-card"
-            :style="{ '--graph-color': getGraphColor(index) }"
+            :class="`live-feed-card--color-${index % 5}`"
           >
             <div class="live-feed-card__background">
               <img
@@ -67,7 +67,7 @@
                 <path
                   :d="generateGraphPath(index)"
                   fill="none"
-                  :stroke="getGraphColor(index)"
+                  stroke="currentColor"
                   stroke-width="3"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -120,13 +120,7 @@ const props = withDefaults(defineProps<Props>(), {
 const feedStore = useLiveFeedStore();
 const { entries } = storeToRefs(feedStore);
 
-const graphColors = ["#3b82f6", "#22c55e", "#ef4444", "#f97316", "#a855f7"];
-
-const getGraphColor = (index: number) => {
-  return graphColors[index % graphColors.length];
-};
-
-const generateGraphPath = (index: number) => {
+const generateGraphPath = (index: number): string => {
   const steps = 20;
   const amplitude = 15 + (index % 3) * 8;
   const frequency = 1.5 + (index % 2) * 0.5;
@@ -270,6 +264,26 @@ const generateGraphPath = (index: number) => {
   min-width: 200px;
   flex-shrink: 0;
   overflow: hidden;
+
+  &--color-0 .live-feed-card__graph {
+    color: #3b82f6;
+  }
+
+  &--color-1 .live-feed-card__graph {
+    color: #22c55e;
+  }
+
+  &--color-2 .live-feed-card__graph {
+    color: #ef4444;
+  }
+
+  &--color-3 .live-feed-card__graph {
+    color: #f97316;
+  }
+
+  &--color-4 .live-feed-card__graph {
+    color: #a855f7;
+  }
 }
 
 .live-feed-card__background {
@@ -287,20 +301,6 @@ const generateGraphPath = (index: number) => {
   left: 0;
 }
 
-.live-feed-card__graph {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  z-index: 1;
-  opacity: 0.8;
-}
-
-.live-feed-card__graph svg {
-  width: 100%;
-  height: 100%;
-}
 
 .live-feed-card__content {
   position: relative;

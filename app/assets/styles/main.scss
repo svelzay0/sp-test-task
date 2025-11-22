@@ -1,5 +1,5 @@
 @use "_fonts";
-@use "_vars";
+@use "_vars" as *;
 
 body {
   margin: 0;
@@ -109,22 +109,15 @@ button {
 // Критические стили для catalog-layout
 .catalog-layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 1fr;
   
   > span:first-of-type {
     display: none !important;
   }
-}
 
-.catalog-layout 
-
-.catalog-layout__filters {
-  border-right: 1px solid var(--color-border);
-  position: sticky;
-  top: var(--header-lg-greater-height);
-  align-self: start;
-  overflow-y: auto;
-  max-width: 320px;
+  @include media-1024 {
+    grid-template-columns: 320px 1fr;
+  }
 }
 
 // Критические стили для catalog-filters
@@ -137,17 +130,53 @@ button {
   border-right: 1px solid var(--color-border-light);
   height: 100vh;
   left: 0;
+
+  @include media-1024 {
+    display: flex;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--color-text-primary);
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    h3 {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-label);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
 }
 
-.catalog-filters__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.catalog-layout__filters {
+  border-right: 1px solid var(--color-border);
+  position: sticky;
+  top: var(--header-lg-greater-height);
+  align-self: start;
+  overflow-y: auto;
+  max-width: 320px;
 
-  h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
+  @media (max-width: 1024px) {
+    display: none;
+  }
+
+  @include media-1024 {
+    display: block;
   }
 }
 
@@ -157,21 +186,6 @@ button {
   color: var(--color-text-label);
   font-weight: 600;
   cursor: pointer;
-}
-
-.catalog-filters__group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  h3 {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text-label);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
 }
 
 .price-range {
@@ -323,23 +337,16 @@ hr {
   display: none;
 }
 
-@media (max-width: 1024px) {
-  .catalog-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .catalog-layout__filters {
-    display: none;
-  }
-
-  .catalog-filters {
-    border-right: none;
-    height: auto;
+.catalog-filters {
+  @include media-1024 {
+    border-right: 1px solid var(--color-border-light);
+    height: 100vh;
   }
 }
 
-@media (max-width: 1024px) {
-  .profile-block, .balance-block {
+.profile-block,
+.balance-block {
+  @include media-1024 {
     display: none !important;
   }
 }
