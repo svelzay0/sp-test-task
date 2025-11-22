@@ -4,7 +4,7 @@
 
     <div class="item-card__media">
       <NuxtImg
-        :src="proxiedImageUrl"
+        :src="item.imageUri"
         :alt="item.name"
         width="128"
         height="128"
@@ -48,7 +48,6 @@ import type { Item } from "~/entities/item";
 import { formatCurrency } from "~/shared/lib/currency";
 import { useCartStore } from "~/features/cart/model/store";
 import { useUserStore } from "~/entities/user";
-import { useImageProxy } from "~/shared/lib/useImageProxy";
 
 const props = defineProps<{
   item: Item;
@@ -56,9 +55,6 @@ const props = defineProps<{
 
 const userStore = useUserStore();
 const cartStore = useCartStore();
-const { getProxiedImageUrl } = useImageProxy();
-
-const proxiedImageUrl = computed(() => getProxiedImageUrl(props.item.imageUri));
 
 const formattedPrice = computed(() =>
   formatCurrency(props.item.price, userStore.currency)

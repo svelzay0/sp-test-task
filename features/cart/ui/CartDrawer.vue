@@ -40,7 +40,7 @@
                 :class="`cart-line__badge--${entry.item.rare}`"
               />
               <NuxtImg
-                :src="getProxiedUrl(entry.item.imageUri)"
+                :src="entry.item.imageUri"
                 :alt="entry.item.name"
                 width="80"
                 height="80"
@@ -136,18 +136,14 @@ import { storeToRefs } from "pinia";
 import { useCartStore } from "~/features/cart/model/store";
 import { useUserStore } from "~/entities/user";
 import { formatCurrency } from "~/shared/lib/currency";
-import { useImageProxy } from "~/shared/lib/useImageProxy";
 
 const cart = useCartStore();
 const userStore = useUserStore();
 const { currency } = storeToRefs(userStore);
-const { getProxiedImageUrl } = useImageProxy();
 
 const errorMessage = ref("");
 
 const formatMoney = (value: number) => formatCurrency(value, currency.value);
-
-const getProxiedUrl = (imageUri: string) => getProxiedImageUrl(imageUri);
 
 
 const handlePurchase = () => {

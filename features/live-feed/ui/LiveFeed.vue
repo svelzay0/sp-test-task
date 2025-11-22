@@ -85,7 +85,7 @@
 
               <div class="live-feed-card__illustration">
                 <NuxtImg
-                  :src="getProxiedUrl(entry.imageUri)"
+                  :src="entry.imageUri"
                   :alt="entry.name"
                   width="80"
                   height="80"
@@ -108,7 +108,6 @@
 import { storeToRefs } from "pinia";
 import { useLiveFeedStore } from "~/features/live-feed/model/store";
 import { formatCurrency } from "~/shared/lib/currency";
-import { useImageProxy } from "~/shared/lib/useImageProxy";
 
 interface Props {
   isCollapsed?: boolean;
@@ -120,9 +119,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const feedStore = useLiveFeedStore();
 const { entries } = storeToRefs(feedStore);
-const { getProxiedImageUrl } = useImageProxy();
-
-const getProxiedUrl = (imageUri: string) => getProxiedImageUrl(imageUri);
 
 const generateGraphPath = (index: number): string => {
   const steps = 20;
